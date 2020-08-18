@@ -4,7 +4,8 @@
   "description": "Mi primer servidor con express",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0"
   },
   "devDependencies": {},
   "scripts": {

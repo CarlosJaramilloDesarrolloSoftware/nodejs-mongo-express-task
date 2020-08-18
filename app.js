@@ -1,34 +1,24 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const TaskModel = require('./models/task')
+const mongoose = require('mongoose');
+const controller = require("./controllers/task_controller");
 const app = express()
-const port = 3000
+const port = process.env.PORT | 3000
 
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.get('/', (req, res) => {
-    res.send('<h1>Index de NODEX</h1>')
-})
+app.use(bodyParser.json())
 
-app.get('/task', (req, res) => {
-    res.send(TaskModel.findAll());
-})
+app.use(controller);
 
-app.get('/task/:id', (req, response) => {
-    response.send(TaskModel.findById(req.params.id));
-})
-
-app.post('/task', (req, res) => {
-    console.log(req.body.title)
-    res.send(req.body)
-    // let task = new Task();
-})
-
-app.delete('/task/:id', (req, res) => {
-    let deleted = TaskModel.deleteById(req.params.id);
-    res.send("Res:" + deleted)
-})
+mongoose.connect('mongodb://localhost:27017/mongo_db', {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+}, (err, res) => {
+    if(err) throw err;
+    console.log("Conectado a la DB");
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`API Listening at http://localhost:${port}`)
 })
