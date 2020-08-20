@@ -20,6 +20,7 @@ let productSchema = new Schema({
     created_at:{
         type: Date,
         require: [true, "'Created at' is required"],
+        default: Date.now
     },
     active: {
         type: Boolean,

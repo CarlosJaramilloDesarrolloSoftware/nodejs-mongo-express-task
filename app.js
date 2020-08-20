@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 
 app.use(controller);
 
-mongoose.connect('mongodb://localhost:27017/mongo_db', {
+mongoose.connect('mongodb://localhost:27017/task_db', {
     useNewUrlParser: true, 
     useUnifiedTopology: true
 }, (err, res) => {

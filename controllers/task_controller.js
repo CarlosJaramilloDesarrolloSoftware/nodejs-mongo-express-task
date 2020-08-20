@@ -11,13 +11,12 @@ app.get('/', function (req, res) {
 });
   
 app.get('/task', function (req, res) {
-
     Task.find({})
             .exec( (err, taskList) => {
                 if(err){
-                    return res.status(400).json({
+                    return res.json({
                         'success': false,
-                        'message' : err,
+                        'message' : err.message,
                         'data' : []
                     });
                 }
@@ -36,11 +35,9 @@ app.post('/task', function (req, res) {
         title: data.title,
         description: data.description,
         image_url: data.image_url,
-        active: true,
-        created_at: Date()
     });
 
-    task.save( (err, taskDB) => {
+    task.save((err, taskDB) => {
         if(err){
             return res.status(400).json({
                 'success': false,
@@ -97,8 +94,6 @@ app.put('/task/:id', function (req, res) {
         })
     });
 });
-
-
 
 app.delete('/task/:id', function (req, res) {
     let id = req.params.id;
