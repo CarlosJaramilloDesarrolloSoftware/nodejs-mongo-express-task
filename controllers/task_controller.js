@@ -79,6 +79,9 @@ app.put('/task/:id', function (req, res) {
     let id = req.params.id;
     let data = req.body;
 
+    // Capturar solo el titulo y la descripcion
+    // y eso será la variable DATA. Ejemplo está en eliminar
+
     Task.findByIdAndUpdate(id, data, {new : true,  runValidators: true}, (err, taskDB) => {
         if(err){
             return res.status(400).json({
@@ -107,7 +110,7 @@ app.delete('/task/:id', function (req, res) {
             });
         }
         if(!taskDB){
-            return res.status(400).json({
+            return res.json({
                 'success': false,
                 'message' : 'Task doesnt found',
                 'data' : []
